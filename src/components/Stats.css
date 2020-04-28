@@ -1,0 +1,13 @@
+.dashboard {
+  display: flex;
+  justify-content: space-between;
+}
+.widget {
+  border: 1px solid #bbb;
+  background-color: #eee;
+  padding: 20px;
+  margin-right: 10px;
+}
+.widget:last-child {
+  margin-right: 0;
+}

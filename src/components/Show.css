@@ -1,0 +1,42 @@
+.showView {
+  margin: 25px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+.header h1 {
+  margin-top: 0;
+}
+.showPlot {
+  max-width: 500px;
+}
+.poster {
+  height: 300px;
+}
+.closeButton {
+  border: 1px solid #bbb;
+  background-color: #eee;
+  border-radius: 50%;
+  color: #999;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
+
+.tabButtons {
+  margin: 10px 0;
+}
+.tabButtons button {
+  margin-right: 10px;
+  border: 1px solid #bbb;
+  background-color: #eee;
+  padding: 10px;
+}
+.tabButtons button.active {
+  background-color: #aaa;
+}
+
+.episodeDate {
+  color: #999;
+}
