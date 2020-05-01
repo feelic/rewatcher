@@ -7,7 +7,7 @@ export default function Episodes(props) {
       {seasons.map(season => {
         return (
           <div key={season.Season} className="season">
-            <h2>Season {season.Season}</h2>
+            <h3>Season {season.Season}</h3>
             <ul>
               {season.Episodes.map(episode => {
                 return (

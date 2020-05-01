@@ -50,7 +50,7 @@ export function getAverageEpisodeScore(episodes) {
   return Math.round((total / episodes.length) * 100) / 100;
 }
 
-export function getWatchList(seasons, numberOfEpisodes) {
+export function getWatchListByNumber(seasons, numberOfEpisodes) {
   const topEpisodes = getTopEpisodesByScore(seasons, numberOfEpisodes).map(
     episode => episode.imdbID
   );
@@ -65,4 +65,31 @@ export function getWatchList(seasons, numberOfEpisodes) {
       };
     })
     .filter(season => season.Episodes.length > 0);
+}
+
+export function getWatchListByThreshold(seasons, threshold) {
+  return seasons
+    .map(season => {
+      return {
+        ...season,
+        Episodes: season.Episodes.filter(episode =>
+          episode.imdbRating >= threshold
+        )
+      };
+    })
+    .filter(season => season.Episodes.length > 0);
+}
+
+export function getEstimatedRuntime (seasons, show) {
+  const episodeRuntime = Number(show.Runtime.split(' ')[0]);
+
+  if (isNaN(episodeRuntime)) {
+    return 'n/a';
+  }
+
+  const totalRuntime = seasons.reduce((prev, curr)=> {
+    return prev + (curr.Episodes.length * episodeRuntime)
+  }, 0)
+
+  return Math.round((totalRuntime / 60) * 10) / 10 + ' hours';
 }

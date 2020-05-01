@@ -1,0 +1,18 @@
+.watchListCalculationModes {
+  display: flex;
+}
+.calculationMode {
+  border: 1px solid #bbb;
+  background-color: #eee;
+  padding: 10px;
+  margin-right: 10px;
+  line-height: 36px;
+}
+.calculationMode input {
+  width: 40px;
+}
+.calculationModeOr {
+  padding: 10px;
+  line-height: 36px;
+  margin-right: 10px;
+}

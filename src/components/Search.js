@@ -6,11 +6,13 @@ export default function Search(props) {
   const { selectShow } = props;
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [searchError, setSearchError] = useState(false);
 
   useEffect(() => {
     const debounceTimer = setTimeout(() => {
       if (searchTerm && searchTerm.length >= 3) {
         searchShowByTitle(searchTerm).then(res => {
+          setSearchError(res.Error || false);
           setSearchResults(res.Search || []);
         });
       }
@@ -27,14 +29,20 @@ export default function Search(props) {
 
   return (
     <div className="searchView">
-      <label htmlFor="search">Search a TV show: </label>
-      <input
-        id="search"
-        type="text"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
+      <h1>Rewatcher</h1>
+      <div className="searchBar">
+        <label htmlFor="search">Search a TV show: </label>
+        <input
+          id="search"
+          type="text"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
+      </div>
       <div className="results">
+        {searchError && (
+          <p className="errorMessage">Your search didn't return any results</p>
+        )}
         {searchResults.map(show => {
           return (
             <button

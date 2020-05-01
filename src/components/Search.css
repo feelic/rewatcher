@@ -25,3 +25,9 @@
 .showCard img {
   height: 200px;
 }
+.errorMessage {
+  font-style: italic;
+}
+.searchBar {
+  margin-left: 2px;
+}

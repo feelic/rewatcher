@@ -1,5 +1,12 @@
 import React, { useState } from "react";
 import "./Show.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faBackward,
+  faHatWizard,
+  faList,
+  faChartBar
+} from "@fortawesome/free-solid-svg-icons";
 import Stats from "./Stats";
 import Episodes from "./Episodes";
 import Watchlist from "./Watchlist";
@@ -8,41 +15,53 @@ import { getGlobalAverageEpisodeScore } from "../stats";
 
 export default function Show(props) {
   const { show, seasons, close } = props;
-  const [openPanel, setOpenPanel] = useState("stats");
+  const [openPanel, setOpenPanel] = useState("Stats");
   const globalAverage = getGlobalAverageEpisodeScore(seasons);
 
   return (
     <div className="showView">
       <div className="header">
         <div>
-          <h1>{show.Title}</h1>
-          <p>{show.Runtime} - {show.Genre} - {show.Type} {show.Year}</p>
+          <div className="titleBar">
+            <button className="closeButton" onClick={close}>
+              <FontAwesomeIcon icon={faBackward} />
+            </button>
+            <h1>{show.Title}</h1>
+          </div>
+          <p>
+            {show.Runtime} - {show.Genre} - {show.Type} {show.Year}
+          </p>
           <p>{show.Actors}...</p>
-          <p>Average episode score: <b>{globalAverage.toString()}</b></p>
-          <p>Written by: <b>{show.Writer}</b></p>
+          <p>
+            Average episode score: <b>{globalAverage.toString()}</b>
+          </p>
+          <p>
+            Created by: <b>{show.Writer}</b>
+          </p>
           <p className="showPlot">{show.Plot}</p>
         </div>
         <img className="poster" src={show.Poster} alt={show.Title} />
-        <button className="closeButton" onClick={close}>
-          X
-        </button>
       </div>
       <div className="tabButtons">
-        {["stats", "episodes", "watchlist"].map(tab => {
+        {[
+          { id: "Stats", icon: faChartBar },
+          { id: "Episodes", icon: faList },
+          { id: "Watchlist", icon: faHatWizard }
+        ].map(tab => {
           return (
             <button
-              key={tab}
-              className={(openPanel === tab && "active") || ""}
-              onClick={() => setOpenPanel(tab)}
+              key={tab.id}
+              className={(openPanel === tab.id && "active") || ""}
+              onClick={() => setOpenPanel(tab.id)}
             >
-              {tab}
+              <FontAwesomeIcon icon={tab.icon} /> {tab.id}
             </button>
           );
         })}
       </div>
-      {openPanel === "stats" && <Stats seasons={seasons} />}
-      {openPanel === "watchlist" && <Watchlist seasons={seasons} />}
-      {openPanel === "episodes" && (
+      {openPanel === "Stats" && <Stats seasons={seasons} />}
+      {openPanel === "Watchlist" && <Watchlist show={show} seasons={seasons} />}
+      {openPanel === "Episodes" && (
         <div className="showDetails">
           <h1>All episodes</h1>
           <Episodes seasons={seasons} />
