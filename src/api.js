@@ -2,7 +2,7 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 
 export function searchShowByTitle(searchTerm) {
   return fetch(
-    `http://www.omdbapi.com/?s=${searchTerm}&type=series&apikey=${API_KEY}`
+    `http://www.omdbapi.com/?s=${searchTerm}*&type=series&apikey=${API_KEY}`
   ).then(response => response.json());
 }
 export function getShowDetails(showId) {

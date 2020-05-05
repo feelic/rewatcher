@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { getShowDetails, getShowEpisodes } from "./api";
 import Search from "./components/Search";
 import Show from "./components/Show";
@@ -20,12 +20,15 @@ function App() {
   }, [selectedShow]);
 
   return (
+    <Fragment>
     <div className="App">
       {!selectedShow && <Search selectShow={id => setSelectedShow(id)} />}
       {selectedShow && (
         <Show show={selectedShowDetails} seasons={selectedShowSeasons} close={() => setSelectedShow()} />
       )}
     </div>
+    <footer>made by <a href="http://feelic.fr">@feelic</a></footer>
+      </Fragment>
   );
 }
 
